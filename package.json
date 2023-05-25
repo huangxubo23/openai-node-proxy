@@ -1,0 +1,21 @@
+{
+  "name": "openai-node-proxy",
+  "version": "1.0.0",
+  "description": "A Node.js-based proxy server for interfacing with the OpenAI API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "openai",
+    "api",
+    "proxy",
+    "node.js"
+  ],
+  "author": "Harry",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6"
+  }
+}
