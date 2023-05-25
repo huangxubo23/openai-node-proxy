@@ -6,7 +6,7 @@ const { PORT } = require('./config')
 const app = express();
 
 // 设置静态资源目录
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'static')))
 
 // 设置openai代理设置
 app.use('/v1/', createProxyMiddleware({
