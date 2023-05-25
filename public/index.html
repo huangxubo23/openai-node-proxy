@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/axios@0.27.2/dist/axios.min.js
+"></script>
+  <title>OpenAI Node Proxy Test</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .welcome {
+      text-align: center;
+    }
+
+    form {
+      width: 80%;
+    }
+
+    #key {
+      height: 32px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    #question {
+      width: 100%;
+      padding: 6px;
+    }
+
+    #output {
+      white-space: pre-wrap;
+    }
+
+    .row {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: block;
+      padding: 6px 40px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media screen and (max-width: 480px) {
+      form {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <form onsubmit="handelSubmit(event)">
+      <h4 class="welcome">
+        这是一个快速测试OpenAI代理的示例
+      </h4>
+      <input id="key" placeholder="请输入OpenAI key" required />
+      <textarea id="question" placeholder="请输入提问的内容" rows="3" required></textarea>
+      <div class="row">
+        <button class="btn">提交</button>
+      </div>
+      <div id="output"></div>
+    </form>
+  </div>
+  <script>
+    var keyInput = document.getElementById('key');
+    var questionInput = document.getElementById('question');
+    var output = document.getElementById('output');
+    function handelSubmit(event) {
+      event.preventDefault();
+      var key = keyInput.value;
+      if (!key) {
+        keyInput.focus();
+        return;
+      }
+      var prompt = questionInput.value;
+      if (!prompt) {
+        questionInput.focus();
+        return
+      }
+      output.innerHTML = '生成中…';
+      axios.post('/v1/completions', {
+        model: 'text-davinci-003',
+        temperature: 0,
+        max_tokens: 1024,
+        prompt: prompt
+      }, {
+        Headers: {
+          'Authorization': 'Bearer ' + key
+        }
+      })
+        .then(response => {
+          output.innerHTML = response.data.choices[0].text.replace('\n\n', '');
+        })
+        .catch(error => {
+          output.innerHTML = error.response.data.message || '哎呀，出错开小差了😓';
+        });
+    }
+  </script>
+</body>
+
+</html>
