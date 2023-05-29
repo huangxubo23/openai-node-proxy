@@ -4,8 +4,7 @@
   "description": "A Node.js-based proxy server for interfacing with the OpenAI API",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "keywords": [
     "openai",
